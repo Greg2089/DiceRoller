@@ -2,7 +2,7 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 /** Это действие позволяет пользователю бросить кости и просмотреть результат
@@ -14,10 +14,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val rollButton: Button = findViewById(R.id.button)
         rollButton.setOnClickListener { rollDice() }
+        rollDice()
     }
 
     /**
-     * Бросайте кости и обновляйте экран с результатом.
+     * Бросить кости и обновить экран с результатом.
      */
     private fun rollDice() {
         // Создайте первый объект Dice с 6 сторонами и бросьте его.
@@ -28,26 +29,49 @@ class MainActivity : AppCompatActivity() {
         val diceTwo = Dice(6)
         val diceRollTwo = diceTwo.roll()
 
-        // Обновите экран с помощью броска костей
-        val resultTextView = findViewById<TextView>(R.id.textView)
-        resultTextView.text = diceRoll.toString()
+        // Найти ImageView в макете
+        val diceImage: ImageView = findViewById(R.id.imageView)
+        // Определить, какой идентификатор ресурса для рисования использовать на основе броска кубиков.
+        val drawableResource = when (diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+        }
+        // Обновляем ImageView с правильным идентификатором ресурса для рисования
+        diceImage.setImageResource(drawableResource)
+        // Обновить описание содержимого
+        diceImage.contentDescription = diceRoll.toString()
 
-        // Обновите экран с помощью броска костей
-        val resultTextViewTwo = findViewById<TextView>(R.id.textView2)
-        resultTextViewTwo.text = diceRollTwo.toString()
 
+        // Найти ImageView в макете
+        val diceImageTwo: ImageView = findViewById(R.id.imageView2)
+        // Определить, какой идентификатор ресурса для рисования использовать на основе броска кубиков.
+        // Обновить описание содержимого
+        when (diceRollTwo) {
+            1 -> diceImageTwo.setImageResource(R.drawable.dice_1)
+            2 -> diceImageTwo.setImageResource(R.drawable.dice_2)
+            3 -> diceImageTwo.setImageResource(R.drawable.dice_3)
+            4 -> diceImageTwo.setImageResource(R.drawable.dice_4)
+            5 -> diceImageTwo.setImageResource(R.drawable.dice_5)
+            6 -> diceImageTwo.setImageResource(R.drawable.dice_6)
+        }
+        // Обновить описание содержимого
+        diceImageTwo.contentDescription = diceRoll.toString()
     }
-}
-
-/**
- * Класс для создания объекта с фиксированным числом граней.
- */
-class Dice(private val numSides: Int) {
 
     /**
-     * Сделайте случайный бросок кубика и верните результат.
+     * Класс для создания объекта с фиксированным числом граней.
      */
-    fun roll(): Int {
-        return (1..numSides).random()
+    class Dice(private val numSides: Int) {
+
+        /**
+         * Сделайть случайный бросок кубика и вернуть результат.
+         */
+        fun roll(): Int {
+            return (1..numSides).random()
+        }
     }
 }
