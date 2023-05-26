@@ -24,17 +24,11 @@ class MainActivity : AppCompatActivity() {
         val dice = Dice(6)
         val diceRoll = dice.roll()
 
-        // Создайте второй объект Dice с 6 сторонами и бросьте его.
-        val diceTwo = Dice(6)
-        val diceRollTwo = diceTwo.roll()
 
         // Обновите экран с помощью броска костей
         val resultTextView = findViewById<TextView>(R.id.textView)
         resultTextView.text = diceRoll.toString()
 
-        // Обновите экран с помощью броска костей
-        val resultTextViewTwo = findViewById<TextView>(R.id.textView2)
-        resultTextViewTwo.text = diceRollTwo.toString()
 
     }
 }
