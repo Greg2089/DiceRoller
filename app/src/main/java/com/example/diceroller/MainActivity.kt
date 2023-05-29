@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         // Обновить описание содержимого
         diceImage.contentDescription = diceRoll.toString()
 
-
         // Найти ImageView в макете
         val diceImageTwo: ImageView = findViewById(R.id.imageView2)
         // Определить, какой идентификатор ресурса для рисования использовать на основе броска кубиков.
